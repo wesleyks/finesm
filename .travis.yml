@@ -8,5 +8,8 @@ python:
   - 3.6
 install:
   - pip install -r requirements_test.txt
+  - pip install coveralls
 script:
-  - pytest
+  - coverage run -m pytest
+after_success:
+  - coveralls
