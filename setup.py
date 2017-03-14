@@ -12,14 +12,14 @@ except(IOError, ImportError):
         long_description = f.read()
 
 setup(
-    name='fine_sm',
+    name='finesm',
 
     version='0.0.0',
 
     description='A fine state machine',
     long_description=long_description,
 
-    url='https://github.com/wesleyks/fine_sm',
+    url='https://github.com/wesleyks/finesm',
 
     license='MIT',
 
@@ -40,5 +40,5 @@ setup(
 
     keywords='finite-state machine state',
 
-    packages=['fine_sm'],
+    packages=['finesm'],
 )

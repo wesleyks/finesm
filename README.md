@@ -1,13 +1,13 @@
-# fine_sm [![Build Status](https://travis-ci.org/wesleyks/fine_sm.svg?branch=master)](https://travis-ci.org/wesleyks/fine_sm) [![Coverage Status](https://coveralls.io/repos/github/wesleyks/fine_sm/badge.svg?branch=master)](https://coveralls.io/github/wesleyks/fine_sm?branch=master)
+# finesm [![Build Status](https://travis-ci.org/wesleyks/finesm.svg?branch=master)](https://travis-ci.org/wesleyks/finesm) [![Coverage Status](https://coveralls.io/repos/github/wesleyks/finesm/badge.svg?branch=master)](https://coveralls.io/github/wesleyks/finesm?branch=master)
 
 ## Installation
 
-`pip install fine_sm`
+`pip install finesm`
 
 ## Usage
 
 ```python
-from fine_sm import Stat, StateMachine
+from finesm import Stat, StateMachine
 
 class MyStateMachine(StateMachine):
     stop = State(default=True)

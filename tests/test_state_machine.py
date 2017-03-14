@@ -1,4 +1,4 @@
-from fine_sm import StateMachine, State
+from finesm import StateMachine, State
 
 
 class SimpleStateMachine(StateMachine):
