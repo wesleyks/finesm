@@ -17,12 +17,15 @@ class State(object):
             return f
         return decorator
 
+    @property
     def on_enter(self):
         return self._on_event(self.EVENT_ENTER)
 
+    @property
     def on_update(self):
         return self._on_event(self.EVENT_UPDATE)
 
+    @property
     def on_exit(self):
         return self._on_event(self.EVENT_EXIT)
 

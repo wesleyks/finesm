@@ -14,11 +14,11 @@ class SimpleStateMachine(StateMachine):
     def waiting_start(self):
         self.set_state(self.running)
 
-    @waiting.on_exit()
+    @waiting.on_exit
     def waiting_exit(self):
         self.foo = True
 
-    @running.on_enter()
+    @running.on_enter
     def running_enter(self):
         self.bar = True
 
