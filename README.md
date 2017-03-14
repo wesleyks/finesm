@@ -7,7 +7,7 @@
 ## Usage
 
 ```python
-from finesm import Stat, StateMachine
+from finesm import State, StateMachine
 
 class MyStateMachine(StateMachine):
     stop = State(default=True)
