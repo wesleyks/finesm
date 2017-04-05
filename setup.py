@@ -8,13 +8,13 @@ try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
 except(IOError, ImportError):
-    with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    with open(path.join(here, 'README.md'), encoding='utf-8') as f:
         long_description = f.read()
 
 setup(
     name='finesm',
 
-    version='0.0.0',
+    version='0.0.1',
 
     description='A fine state machine',
     long_description=long_description,
