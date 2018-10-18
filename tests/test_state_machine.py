@@ -19,7 +19,7 @@ class SimpleStateMachine(StateMachine):
     def waiting_exit(self):
         self.foo = True
 
-    @running.on_enter
+    @running.on_enter()
     def running_enter(self):
         self.bar = True
 

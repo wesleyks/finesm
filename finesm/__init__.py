@@ -1,4 +1,7 @@
 import inspect
+import logging
+
+logger = logging.getLogger()
 
 
 class State(object):
@@ -17,17 +20,23 @@ class State(object):
             return f
         return decorator
 
-    @property
-    def on_enter(self):
-        return self._on_event(self.EVENT_ENTER)
+    def on_enter(self, *args):
+        if len(args) == 1 and callable(args[0]):
+            return self._on_event(self.EVENT_ENTER)(args[0])
+        else:
+            return self._on_event(self.EVENT_ENTER)
 
-    @property
-    def on_update(self):
-        return self._on_event(self.EVENT_UPDATE)
+    def on_update(self, *args):
+        if len(args) == 1 and callable(args[0]):
+            return self._on_event(self.EVENT_UPDATE)(args[0])
+        else:
+            return self._on_event(self.EVENT_UPDATE)
 
-    @property
-    def on_exit(self):
-        return self._on_event(self.EVENT_EXIT)
+    def on_exit(self, *args):
+        if len(args) == 1 and callable(args[0]):
+            return self._on_event(self.EVENT_EXIT)(args[0])
+        else:
+            return self._on_event(self.EVENT_EXIT)
 
     def on_message(self, message_name):
         def decorator(f):
