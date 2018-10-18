@@ -1,30 +1,23 @@
 from setuptools import setup
-from codecs import open
-from os import path
 
-here = path.abspath(path.dirname(__file__))
-
-try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-except(IOError, ImportError):
-    with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-        long_description = f.read()
+with open('README.md', 'r') as fh:
+    long_description = fh.read()
 
 setup(
     name='finesm',
 
-    version='0.0.1',
+    version='1.0.0',
 
     description='A fine state machine',
     long_description=long_description,
+    long_description_content_type="text/markdown",
 
     url='https://github.com/wesleyks/finesm',
 
     license='MIT',
 
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
