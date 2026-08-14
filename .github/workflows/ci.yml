@@ -12,6 +12,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  typecheck:
+    name: Type check (Python 3.11)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry==2.4.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: poetry
+      - run: poetry sync
+      - run: poetry run pyrefly check
+
   test:
     name: Test (Python ${{ matrix.python }})
     runs-on: ubuntu-latest
@@ -32,6 +45,16 @@ jobs:
       - run: poetry build
       - name: Verify built wheel
         run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          wheel = next(Path("dist").glob("*.whl"))
+          with ZipFile(wheel) as archive:
+              names = set(archive.namelist())
+          assert "finesm/__init__.py" in names
+          assert "finesm/py.typed" in names
+          PY
           python -m venv /tmp/finesm-wheel-test
           /tmp/finesm-wheel-test/bin/python -m pip install --no-deps dist/*.whl
           cd /tmp

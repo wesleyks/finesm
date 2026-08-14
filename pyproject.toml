@@ -26,5 +26,14 @@ classifiers = [
 Repository = "https://github.com/wesleyks/finesm"
 Issues = "https://github.com/wesleyks/finesm/issues"
 
+[tool.poetry]
+packages = [{ include = "finesm", from = "src" }]
+
 [dependency-groups]
 test = ["pytest>=8,<10"]
+type = ["pyrefly>=1,<2"]
+
+[tool.pyrefly]
+project-includes = ["src", "tests"]
+search-path = ["src"]
+python-version = "3.11"

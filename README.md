@@ -15,7 +15,7 @@ class MyStateMachine(StateMachine):
 
     @stop.on_message('switch')
     def stop_switch(self):
-        self.set_state(go)
+        self.set_state(self.go)
 
     @stop.on_exit
     def stop_exit(self):
