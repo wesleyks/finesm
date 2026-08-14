@@ -1,2 +1,0 @@
-twine==1.8.1
--r requirements_test.txt

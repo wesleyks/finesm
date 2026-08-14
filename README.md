@@ -1,4 +1,4 @@
-# finesm [![Build Status](https://travis-ci.org/wesleyks/finesm.svg?branch=master)](https://travis-ci.org/wesleyks/finesm) [![Coverage Status](https://coveralls.io/repos/github/wesleyks/finesm/badge.svg?branch=master)](https://coveralls.io/github/wesleyks/finesm?branch=master)
+# finesm [![CI](https://github.com/wesleyks/finesm/actions/workflows/ci.yml/badge.svg)](https://github.com/wesleyks/finesm/actions/workflows/ci.yml)
 
 ## Installation
 

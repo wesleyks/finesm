@@ -1,0 +1,55 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+      - run: pipx install poetry==2.4.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: poetry
+      - run: poetry sync
+      - run: poetry check --lock
+      - run: poetry run pytest
+      - name: Verify release tag matches package version
+        env:
+          RELEASE_TAG: ${{ needs.release-please.outputs.tag_name }}
+        run: test "$RELEASE_TAG" = "v$(poetry version --short)"
+      - run: poetry build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
