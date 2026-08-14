@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry==2.4.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: poetry
+      - run: poetry sync
+      - run: poetry check --lock
+      - run: poetry run pytest
+      - run: poetry build
+      - name: Verify built wheel
+        run: |
+          python -m venv /tmp/finesm-wheel-test
+          /tmp/finesm-wheel-test/bin/python -m pip install --no-deps dist/*.whl
+          cd /tmp
+          /tmp/finesm-wheel-test/bin/python -c "from finesm import State, StateMachine"
